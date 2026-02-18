@@ -32,7 +32,7 @@ A modern, easy-to-use web application for creating professional marriage biodata
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/biodata-builder.git
+   git clone https://github.com/cvam29/biodata-builder.git
    ```
 
 2. Navigate to the project folder:
@@ -55,13 +55,19 @@ A modern, easy-to-use web application for creating professional marriage biodata
 
 5. Open your browser and visit `http://localhost:5173`.
 
-## Usage
+## Deployment
 
-1. Click on **"Create Now"** from the Home page.
-2. Fill in your **Personal**, **Family**, and **Contact** details in the editor.
-3. Use the **"Add Field"** button to add custom information.
-4. Experiment with different **Backgrounds**.
-5. Click **"Save PDF"** to download your biodata.
+This project is configured for automatic deployment to **GitHub Pages**.
+
+1. **Push to GitHub**: Any push to the `main` branch will trigger the deployment workflow.
+2. **Enable Pages**:
+   - Go to your repository settings on GitHub.
+   - Click on **Pages** in the sidebar.
+   - Under "Build and deployment", select **Deploy from a branch**.
+   - Select the `gh-pages` branch (this branch is created automatically by the workflow after the first run) and `/(root)` folder.
+   - Click **Save**.
+
+Your app will be live at `https://cvam29.github.io/biodata-builder/`.
 
 ## License
 
