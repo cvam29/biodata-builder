@@ -4,19 +4,20 @@ const BiodataPreview = ({ data, background }) => {
   const bgClass = background?.class || 'bg-white';
 
   return (
-    <div className="preview-container bg-gray-500 p-8 min-h-screen overflow-auto flex justify-center items-start">
+    <div className="preview-container bg-gray-500 p-4 sm:p-8 min-h-screen overflow-auto flex justify-center items-start">
         {/* Inline styles to match the original HTML exactly, scoped to this component if needed, 
             but here we use the exact classes and a style tag for print fidelity. 
         */}
       <style>{`
         .biodata-page {
-            width: 800px; /* Fixed width for A4-like appearance */
+            width: 100%; /* Responsive width */
+            max-width: 800px; /* Max width for A4-like appearance */
             margin: auto;
             background-color: ${background?.value === 'none' ? '#fff' : 'transparent'};
             background-image: ${background?.value !== 'none' ? background.value : 'none'};
             background-size: ${background?.size || 'auto'};
-            border: 8px solid #c89b2b;
-            padding: 40px 60px;
+            border: 6px solid #c89b2b;
+            padding: 20px 30px;
             position: relative;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             font-family: "Segoe UI", Tahoma, sans-serif;
@@ -24,9 +25,22 @@ const BiodataPreview = ({ data, background }) => {
             box-sizing: border-box;
         }
 
+        @media (min-width: 640px) {
+            .biodata-page {
+                border-width: 8px;
+                padding: 40px 60px;
+            }
+        }
+
         .border-decoration {
             border: 2px solid #c89b2b;
-            padding: 30px;
+            padding: 20px;
+        }
+
+        @media (min-width: 640px) {
+            .border-decoration {
+                padding: 30px;
+            }
         }
 
         .center {
@@ -34,13 +48,20 @@ const BiodataPreview = ({ data, background }) => {
         }
 
         .ganesh {
-            width: 80px;
-            margin: 0 auto 10px auto; /* Centering for block-level image */
+            width: 60px;
+            margin: 0 auto 8px auto; /* Centering for block-level image */
             display: block;
         }
 
+        @media (min-width: 640px) {
+            .ganesh {
+                width: 80px;
+                margin-bottom: 10px;
+            }
+        }
+
         h1 {
-            font-size: 22px;
+            font-size: 18px;
             color: #a67c00;
             margin: 5px 0;
             font-weight: bold;
@@ -48,30 +69,63 @@ const BiodataPreview = ({ data, background }) => {
             text-align: center;
         }
 
+        @media (min-width: 640px) {
+            h1 {
+                font-size: 22px;
+            }
+        }
+
         h2 {
-            font-size: 18px;
+            font-size: 16px;
             color: #a67c00;
-            margin-top: 25px;
-            margin-bottom: 10px;
+            margin-top: 20px;
+            margin-bottom: 8px;
             font-weight: bold;
             text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 18px;
+                margin-top: 25px;
+                margin-bottom: 10px;
+            }
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 16px;
+            font-size: 14px;
+        }
+
+        @media (min-width: 640px) {
+            table {
+                font-size: 16px;
+            }
         }
 
         td {
-            padding: 6px 0;
+            padding: 5px 0;
             vertical-align: top;
         }
 
+        @media (min-width: 640px) {
+            td {
+                padding: 6px 0;
+            }
+        }
+
         td.label {
-            width: 35%;
+            width: 40%;
             font-weight: 600;
             color: #5a4a2a;
+            word-wrap: break-word;
+        }
+
+        @media (min-width: 640px) {
+            td.label {
+                width: 35%;
+            }
         }
 
         td.colon {
@@ -80,8 +134,15 @@ const BiodataPreview = ({ data, background }) => {
         }
 
         td.value {
-            width: 60%;
+            width: 55%;
             color: #333;
+            word-wrap: break-word;
+        }
+
+        @media (min-width: 640px) {
+            td.value {
+                width: 60%;
+            }
         }
 
         @media print {
@@ -100,8 +161,25 @@ const BiodataPreview = ({ data, background }) => {
                 box-shadow: none;
                 border: 8px solid #c89b2b !important; /* Ensure border prints */
                 width: 100%;
+                max-width: 100%;
                 margin: 0;
+                padding: 40px 60px;
                 page-break-after: always;
+            }
+            .border-decoration {
+                padding: 30px;
+            }
+            table {
+                font-size: 16px;
+            }
+            .ganesh {
+                width: 80px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
             }
             /* Hide UI elements */
             .no-print { display: none !important; }
