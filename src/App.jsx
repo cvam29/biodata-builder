@@ -6,7 +6,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const App = () => {
     return (
-        <Router>
+        <Router basename="/biodata-builder">
             <Routes>
                 {/* Marketing Pages with Header/Footer */}
                 <Route element={<MarketingLayout />}>
