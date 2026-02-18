@@ -63,9 +63,8 @@ This project is configured for automatic deployment to **GitHub Pages**.
 2. **Enable Pages**:
    - Go to your repository settings on GitHub.
    - Click on **Pages** in the sidebar.
-   - Under "Build and deployment", select **Deploy from a branch**.
-   - Select the `gh-pages` branch (this branch is created automatically by the workflow after the first run) and `/(root)` folder.
-   - Click **Save**.
+   - Under "Build and deployment", select **GitHub Actions** as the source.
+   - The workflow will automatically deploy your site on every push to `main`.
 
 Your app will be live at `https://cvam29.github.io/biodata-builder/`.
 
