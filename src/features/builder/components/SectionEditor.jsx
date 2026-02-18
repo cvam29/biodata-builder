@@ -57,7 +57,7 @@ const SectionEditor = ({ title, fields, onUpdate, onAdd, onRemove, onMove }) => 
       </div>
       <button
         onClick={onAdd}
-        className="mt-4 flex items-center gap-2 text-sm font-medium text-amber-700 hover:text-amber-900 px-3 py-2 sm:py-1.5 rounded hover:bg-amber-50 transition-colors w-full sm:w-auto justify-center sm:justify-start"
+        className="mt-4 flex items-center justify-center sm:justify-start gap-2 w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm font-medium text-amber-700 hover:text-amber-900 rounded hover:bg-amber-50 transition-colors"
       >
         <Plus size={16} /> Add Field
       </button>
