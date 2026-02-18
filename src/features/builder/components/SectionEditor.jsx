@@ -1,32 +1,6 @@
-import { useState } from 'react';
 import { Plus, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
-export function cn(...inputs) {
-  return twMerge(clsx(inputs));
-}
-
-const SectionEditor = ({ title, fields, setFields }) => {
-  const handleChange = (id, key, value) => {
-    setFields(fields.map(f => f.id === id ? { ...f, [key]: value } : f));
-  };
-
-  const addField = () => {
-    setFields([...fields, { id: crypto.randomUUID(), label: 'New Field', value: '' }]);
-  };
-
-  const removeField = (id) => {
-    setFields(fields.filter(f => f.id !== id));
-  };
-
-  const moveField = (index, direction) => {
-    const newFields = [...fields];
-    const [movedField] = newFields.splice(index, 1);
-    newFields.splice(index + direction, 0, movedField);
-    setFields(newFields);
-  };
-
+const SectionEditor = ({ title, fields, onUpdate, onAdd, onRemove, onMove }) => {
   return (
     <div className="mb-8 bg-white p-6 rounded-lg shadow-sm">
       <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">{title}</h3>
@@ -37,14 +11,14 @@ const SectionEditor = ({ title, fields, setFields }) => {
                <input
                 type="text"
                 value={field.label}
-                onChange={(e) => handleChange(field.id, 'label', e.target.value)}
+                onChange={(e) => onUpdate(field.id, 'label', e.target.value)}
                 className="col-span-4 p-2 border rounded text-sm focus:ring-2 focus:ring-amber-500 outline-none font-medium text-amber-900"
                 placeholder="Label"
               />
               <input
                 type="text"
                 value={field.value}
-                onChange={(e) => handleChange(field.id, 'value', e.target.value)}
+                onChange={(e) => onUpdate(field.id, 'value', e.target.value)}
                 className="col-span-8 p-2 border rounded text-sm focus:ring-2 focus:ring-amber-500 outline-none"
                 placeholder="Value"
               />
@@ -52,7 +26,7 @@ const SectionEditor = ({ title, fields, setFields }) => {
             
             <div className="flex flex-col gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                 <button 
-                    onClick={() => moveField(index, -1)} 
+                    onClick={() => onMove(index, -1)} 
                     disabled={index === 0}
                     className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
                     title="Move Up"
@@ -60,7 +34,7 @@ const SectionEditor = ({ title, fields, setFields }) => {
                     <ArrowUp size={14} />
                 </button>
                 <button 
-                    onClick={() => moveField(index, 1)} 
+                    onClick={() => onMove(index, 1)} 
                     disabled={index === fields.length - 1}
                      className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
                      title="Move Down"
@@ -70,7 +44,7 @@ const SectionEditor = ({ title, fields, setFields }) => {
             </div>
 
             <button
-              onClick={() => removeField(field.id)}
+              onClick={() => onRemove(field.id)}
               className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                 title="Remove Field"
             >
@@ -80,7 +54,7 @@ const SectionEditor = ({ title, fields, setFields }) => {
         ))}
       </div>
       <button
-        onClick={addField}
+        onClick={onAdd}
         className="mt-4 flex items-center gap-2 text-sm font-medium text-amber-700 hover:text-amber-900 px-3 py-1.5 rounded hover:bg-amber-50 transition-colors"
       >
         <Plus size={16} /> Add Field

@@ -2,44 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Shield, Sparkles } from 'lucide-react';
 
-const Footer = () => (
-    <footer className="bg-slate-900 text-slate-400 py-12">
-        <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                     <h2 className="text-2xl font-bold text-white mb-2">Biodata Builder</h2>
-                     <p className="text-sm">Create beautiful marriage biodatas in minutes.</p>
-                </div>
-                <div className="flex gap-8 text-sm">
-                    <Link to="/" className="hover:text-white transition-colors">Home</Link>
-                    <Link to="/builder" className="hover:text-white transition-colors">Create</Link>
-                    <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                </div>
-            </div>
-            <div className="mt-12 pt-8 border-t border-slate-800 text-center text-xs">
-                &copy; {new Date().getFullYear()} Biodata Builder. All rights reserved.
-            </div>
-        </div>
-    </footer>
-);
-
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white">
-        {/* Navigation */}
-        <nav className="border-b border-gray-100 sticky top-0 bg-white/80 backdrop-blur-md z-50">
-            <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-                 <div className="flex items-center gap-2">
-                    <img src="https://englishbiodata.com/images/latest/gods/1.png" className="w-8 h-8 rounded-full" alt="Logo" />
-                    <span className="text-xl font-bold text-gray-900">Biodata Builder</span>
-                </div>
-                <div className="flex gap-6">
-                     <Link to="/builder" className="text-sm font-medium text-gray-600 hover:text-amber-600 transition-colors">Create Now</Link>
-                     <Link to="/privacy" className="text-sm font-medium text-gray-600 hover:text-amber-600 transition-colors">Privacy</Link>
-                </div>
-            </div>
-        </nav>
-
+    <>
         {/* Hero Section */}
         <section className="py-20 lg:py-32 bg-gradient-to-b from-amber-50 to-white overflow-hidden">
             <div className="container mx-auto px-6 text-center">
@@ -95,9 +60,7 @@ const Home = () => {
                 </div>
             </div>
         </section>
-
-        <Footer />
-    </div>
+    </>
   );
 };
 

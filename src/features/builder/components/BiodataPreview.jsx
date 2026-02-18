@@ -35,7 +35,7 @@ const BiodataPreview = ({ data, background }) => {
 
         .ganesh {
             width: 80px;
-            margin: 0 auto 10px auto; /* Centering for block-level image (Tailwind reset) */
+            margin: 0 auto 10px auto; /* Centering for block-level image */
             display: block;
         }
 
@@ -107,7 +107,7 @@ const BiodataPreview = ({ data, background }) => {
             .no-print { display: none !important; }
         }
       `}</style>
-
+      
       <div className={`biodata-page ${bgClass}`} id="biodata-preview">
         <div className="border-decoration">
           <div className="center">
