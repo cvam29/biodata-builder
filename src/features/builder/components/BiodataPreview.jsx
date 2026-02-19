@@ -13,8 +13,8 @@ const BiodataPreview = ({ data, background }) => {
             width: 100%; /* Responsive width */
             max-width: 800px; /* Max width for A4-like appearance */
             margin: auto;
-            background-color: ${background?.value === 'none' ? '#fff' : 'transparent'};
-            background-image: ${background?.value !== 'none' ? background.value : 'none'};
+            ${background?.value === 'none' ? 'background-color: #fff;' : ''}
+            background-image: ${background?.value !== 'none' ? background?.value ?? 'none' : 'none'};
             background-size: ${background?.size || 'auto'};
             border: 6px solid #c89b2b;
             padding: 20px 30px;
@@ -60,7 +60,7 @@ const BiodataPreview = ({ data, background }) => {
             }
         }
 
-        h1 {
+        .biodata-page h1 {
             font-size: 18px;
             color: #a67c00;
             margin: 5px 0;
@@ -70,12 +70,12 @@ const BiodataPreview = ({ data, background }) => {
         }
 
         @media (min-width: 640px) {
-            h1 {
+            .biodata-page h1 {
                 font-size: 22px;
             }
         }
 
-        h2 {
+        .biodata-page h2 {
             font-size: 16px;
             color: #a67c00;
             margin-top: 20px;
@@ -85,37 +85,37 @@ const BiodataPreview = ({ data, background }) => {
         }
 
         @media (min-width: 640px) {
-            h2 {
+            .biodata-page h2 {
                 font-size: 18px;
                 margin-top: 25px;
                 margin-bottom: 10px;
             }
         }
 
-        table {
+        .biodata-page table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
         }
 
         @media (min-width: 640px) {
-            table {
+            .biodata-page table {
                 font-size: 16px;
             }
         }
 
-        td {
+        .biodata-page td {
             padding: 5px 0;
             vertical-align: top;
         }
 
         @media (min-width: 640px) {
-            td {
+            .biodata-page td {
                 padding: 6px 0;
             }
         }
 
-        td.label {
+        .biodata-page td.label {
             width: 40%;
             font-weight: 600;
             color: #5a4a2a;
@@ -123,24 +123,24 @@ const BiodataPreview = ({ data, background }) => {
         }
 
         @media (min-width: 640px) {
-            td.label {
+            .biodata-page td.label {
                 width: 35%;
             }
         }
 
-        td.colon {
+        .biodata-page td.colon {
             width: 5%;
             text-align: center;
         }
 
-        td.value {
+        .biodata-page td.value {
             width: 55%;
             color: #333;
             word-wrap: break-word;
         }
 
         @media (min-width: 640px) {
-            td.value {
+            .biodata-page td.value {
                 width: 60%;
             }
         }
@@ -154,7 +154,7 @@ const BiodataPreview = ({ data, background }) => {
             .preview-container { 
                 padding: 0; 
                 background: none; 
-                min-h: auto;
+                min-height: auto;
                 display: block;
             }
             .biodata-page {
@@ -169,16 +169,16 @@ const BiodataPreview = ({ data, background }) => {
             .border-decoration {
                 padding: 30px;
             }
-            table {
+            .biodata-page table {
                 font-size: 16px;
             }
             .ganesh {
                 width: 80px;
             }
-            h1 {
+            .biodata-page h1 {
                 font-size: 22px;
             }
-            h2 {
+            .biodata-page h2 {
                 font-size: 18px;
             }
             /* Hide UI elements */
