@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import MarketingLayout from './layouts/MarketingLayout';
 import Home from './pages/Home';
 import BiodataBuilder from './pages/Builder';
@@ -6,7 +6,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 const App = () => {
     return (
-        <Router basename="/biodata-builder">
+        <Router>
             <Routes>
                 {/* Marketing Pages with Header/Footer */}
                 <Route element={<MarketingLayout />}>
