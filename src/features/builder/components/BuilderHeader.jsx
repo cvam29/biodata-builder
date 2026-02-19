@@ -21,7 +21,7 @@ const BuilderHeader = ({ onPrint }) => {
                     className="flex items-center gap-1 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg active:scale-95 flex-shrink-0"
                 >
                     <Printer size={16} />
-                    <span className="hidden xs:inline">PDF</span>
+                    <span>PDF</span>
                 </button>
             </div>
 
