@@ -49,7 +49,7 @@ npm run preview
 ## Preview
 
 - Preview the production build locally with `npm run preview` (serves the built files).
-- Live demo: https://cvam29.github.io/biodata-builder/
+- Live demo: [https://cvam29.github.io/biodata-builder/](https://biodata-builder-gamma.vercel.app/#/)
 
 ## Usage
 
