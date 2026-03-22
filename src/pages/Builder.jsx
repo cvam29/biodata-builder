@@ -4,7 +4,7 @@ import SectionEditor from '../features/builder/components/SectionEditor';
 import BiodataPreview from '../features/builder/components/BiodataPreview';
 import BuilderHeader from '../features/builder/components/BuilderHeader';
 import { backgrounds } from '../features/builder/data/backgrounds';
-import { generatePdf } from '../features/builder/utils/generatePdf';
+import { generatePdf, generatePdfPreview } from '../features/builder/utils/generatePdf';
 import { Image as ImageIcon, Eye, Edit } from 'lucide-react';
 
 const BiodataBuilder = () => {
@@ -27,9 +27,22 @@ const BiodataBuilder = () => {
         }
     };
 
+    const handlePreviewPdf = async () => {
+        if (isSaving) return;
+        setIsSaving(true);
+        try {
+            await generatePdfPreview('biodata-preview', 'biodata-preview.pdf');
+        } catch (err) {
+            console.error('PDF preview failed:', err);
+            alert('Failed to generate PDF preview. Please try again.');
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
     return (
         <div className="flex flex-col h-screen overflow-hidden print:overflow-visible print:h-auto print:block text-gray-800 font-sans">
-             <BuilderHeader onPrint={handlePrint} isSaving={isSaving} />
+             <BuilderHeader onPrint={handlePrint} onPreviewPdf={handlePreviewPdf} isSaving={isSaving} />
 
             {/* Mobile Preview/Edit Toggle */}
             <div className="md:hidden flex gap-2 p-3 bg-white border-b border-gray-200 no-print">

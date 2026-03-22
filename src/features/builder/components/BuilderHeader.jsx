@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Printer, Loader2 } from 'lucide-react';
+import { ArrowLeft, Printer, Loader2, Eye } from 'lucide-react';
 
-const BuilderHeader = ({ onPrint, isSaving }) => {
+const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving }) => {
     return (
         <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 shadow-sm z-10 shrink-0 no-print">
             {/* Mobile Layout */}
@@ -16,14 +16,24 @@ const BuilderHeader = ({ onPrint, isSaving }) => {
                     <h1 className="text-base font-bold bg-linear-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent truncate">Biodata Builder</h1>
                 </div>
 
-                <button 
-                    onClick={onPrint}
-                    disabled={isSaving}
-                    className="flex items-center gap-1 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg active:scale-95 shrink-0 disabled:opacity-60 disabled:cursor-wait"
-                >
-                    {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Printer size={16} />}
-                    <span>{isSaving ? 'Saving...' : 'PDF'}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={onPreviewPdf}
+                        disabled={isSaving}
+                        className="flex items-center gap-1 bg-white border border-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:shadow-sm active:scale-95 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                        <Eye size={16} />
+                        <span>Preview</span>
+                    </button>
+                    <button 
+                        onClick={onPrint}
+                        disabled={isSaving}
+                        className="flex items-center gap-1 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg active:scale-95 shrink-0 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                        {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Printer size={16} />}
+                        <span>{isSaving ? 'Saving...' : 'PDF'}</span>
+                    </button>
+                </div>
             </div>
 
             {/* Desktop Layout */}
@@ -39,6 +49,14 @@ const BuilderHeader = ({ onPrint, isSaving }) => {
                 </div>
 
                 <div className="flex items-center gap-3">
+                    <button
+                        onClick={onPreviewPdf}
+                        disabled={isSaving}
+                        className="flex items-center gap-2 bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all hover:shadow-sm active:scale-95 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                        <Eye size={18} />
+                        <span>Preview</span>
+                    </button>
                     <button 
                         onClick={onPrint}
                         disabled={isSaving}

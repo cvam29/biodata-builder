@@ -1,73 +1,78 @@
 # Biodata Builder
 
-A modern, easy-to-use web application for creating professional marriage biodata. Built with React, Vite, and Tailwind CSS.
+A small, privacy-first web app to build professional marriage biodata (resumes/profile sheets) in the browser and export print-ready PDFs.
+
+## Quick overview
+
+- Build custom biodata forms (Personal, Family, Contact, Education, Work, etc.)
+- Live split-screen editor + preview
+- Select background templates and generate high-quality PDFs
+- All data stays in your browser — no server upload
 
 ## Features
 
-- **Dynamic Form Builder**: Add, remove, and reorder fields for Personal, Family, and Contact details.
-- **Real-time Preview**: See changes instantly as you type.
-- **Split-Screen Layout**: Edit on the left, preview on the right.
-- **Background Selection**: Choose from multiple background patterns (Plain, Texture, Floral, Modern).
-- **PDF Export**: Generate high-quality, print-ready PDFs directly from the browser.
-- **Responsive Design**: Works on desktop and mobile.
-- **Privacy Focused**: All data is processed locally in your browser. No data is sent to any server.
+- Dynamic form builder: add, remove, reorder sections and fields
+- Real-time preview while editing
+- Multiple background templates (plain, texture, modern, floral)
+- PDF export (client-side)
+- Responsive layout for desktop and mobile
 
-## Tech Stack
+## Tech stack
 
-- **Frontend**: [React](https://reactjs.org/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Routing**: [React Router DOM](https://reactrouter.com/)
+- Frontend: React
+- Build tool: Vite
+- Styling: Tailwind CSS
+- Icons: Lucide React
+- Routing: React Router DOM
 
-## Getting Started
+## Quick start
 
-### Prerequisites
+Prerequisites: Node.js v18+ and npm or yarn
 
-- Node.js (v18 or higher)
-- npm or yarn
+Clone, install, and run locally:
 
-### Installation
+```bash
+git clone https://github.com/cvam29/biodata-builder.git
+cd biodata-builder
+npm install
+npm run dev
+# open http://localhost:5173
+```
 
-1. Clone the repository:
+Build for production and preview the built site:
 
-   ```bash
-   git clone https://github.com/cvam29/biodata-builder.git
-   ```
+```bash
+npm run build
+npm run preview
+```
 
-2. Navigate to the project folder:
+## Preview
 
-   ```bash
-   cd biodata-builder
-   ```
+- Preview the production build locally with `npm run preview` (serves the built files).
+- Live demo: https://cvam29.github.io/biodata-builder/
 
-3. Install dependencies:
+## Usage
 
-   ```bash
-   npm install
-   ```
+- Open the app and go to the Builder page.
+- Use the left-hand editor to add or edit sections and fields.
+- Pick a background from the background selector.
+- Click the export button to download a PDF.
 
-4. Start the development server:
+## Project structure
 
-   ```bash
-   npm run dev
-   ```
+- `src/` — application source
+  - `pages/Builder.jsx` — main editor page
+  - `features/builder/` — builder UI, hooks, utilities
+  - `components/` — shared UI components
 
-5. Open your browser and visit `http://localhost:5173`.
+## Contributing
 
-## Deployment
-
-This project is configured for automatic deployment to **GitHub Pages**.
-
-1. **Push to GitHub**: Any push to the `main` branch will trigger the deployment workflow.
-2. **Enable Pages**:
-   - Go to your repository settings on GitHub.
-   - Click on **Pages** in the sidebar.
-   - Under "Build and deployment", select **GitHub Actions** as the source.
-   - The workflow will automatically deploy your site on every push to `main`.
-
-Your app will be live at `https://cvam29.github.io/biodata-builder/`.
+Contributions are welcome. Please open an issue or submit a pull request with a clear description of changes. Keep formatting and lint rules consistent; run `npm run lint` before submitting.
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT — see the `LICENSE` file for details.
+
+---
+
+If you'd like, I can add badges (build/preview/license), examples/screenshots, or a short GIF showing the editor — tell me which and I'll update the README again.
