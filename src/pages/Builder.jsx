@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { Image as ImageIcon, Eye, Edit } from 'lucide-react';
 
 const BiodataBuilder = () => {
-    const { biodata, updateField, addField, removeField, moveField } = useBiodata();
+    const { biodata, updateField, addField, removeField, moveField, resetBiodata } = useBiodata();
     const [bgImage, setBgImage] = useState('none');
     const [showPreview, setShowPreview] = useState(false);
     const [lang, setLang] = useState(() => {
@@ -87,9 +87,15 @@ const BiodataBuilder = () => {
         if (meta) meta.setAttribute('content', 'Create and customize your marriage biodata, then export as a high-quality PDF.');
     }, []);
 
+    const handleReset = () => {
+        if (!confirm('Reset all fields to default? This will clear your current changes.')) return;
+        resetBiodata();
+    };
+
     return (
         <div className="flex flex-col h-screen overflow-hidden print:overflow-visible print:h-auto print:block text-gray-800 font-sans">
-             <BuilderHeader onPrint={handlePrint} onPreviewPdf={handlePreviewPdf} isSaving={isSaving} lang={lang} onLangChange={setLang} />
+             <BuilderHeader onPrint={handlePrint} onPreviewPdf={handlePreviewPdf} isSaving={isSaving} lang={lang} onLangChange={setLang} onReset={handleReset} />
+
 
             {/* Mobile Preview/Edit Toggle */}
             <div className="md:hidden flex gap-2 p-3 bg-white border-b border-gray-200 no-print">

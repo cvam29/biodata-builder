@@ -69,12 +69,21 @@ export const useBiodata = () => {
 
     // Full setter for compatibility if needed, or replace with specific actions
     // For now, exposing setBiodata is flexible
+    // Reset to initial state and clear saved data
+    const resetBiodata = () => {
+        try {
+            localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+        setBiodata(getInitialState());
+    };
+
     return { 
         biodata, 
         setBiodata,
         updateField,
         addField,
         removeField,
-        moveField
+        moveField,
+        resetBiodata
     };
 };

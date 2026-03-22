@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Printer, Loader2, Eye } from 'lucide-react';
 
-const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving, lang = 'en', onLangChange = () => {} }) => {
+const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving, lang = 'en', onLangChange = () => {}, onReset = () => {} }) => {
     return (
         <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 shadow-sm z-10 shrink-0 no-print">
             {/* Mobile Layout */}
@@ -29,6 +29,17 @@ const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving, lang = 'en', onLangCha
                     >
                         <Eye size={16} />
                         <span>Preview</span>
+                    </button>
+                    <button 
+                        onClick={onReset}
+                        disabled={isSaving}
+                        className="flex items-center gap-1 bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-sm font-medium transition-all hover:shadow-sm active:scale-95 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                            <path d="M3 12a9 9 0 1 0 9-9" />
+                            <path d="M3 3v9h9" />
+                        </svg>
+                        <span>Reset</span>
                     </button>
                     <button 
                         onClick={onPrint}
@@ -66,6 +77,17 @@ const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving, lang = 'en', onLangCha
                     >
                         <Eye size={18} />
                         <span>Preview</span>
+                    </button>
+                    <button
+                        onClick={onReset}
+                        disabled={isSaving}
+                        className="flex items-center gap-2 bg-white border border-red-200 text-red-600 px-4 py-2 rounded-lg font-medium transition-all hover:shadow-sm active:scale-95 disabled:opacity-60 disabled:cursor-wait"
+                    >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                            <path d="M3 12a9 9 0 1 0 9-9" />
+                            <path d="M3 3v9h9" />
+                        </svg>
+                        <span>Reset</span>
                     </button>
                     <button 
                         onClick={onPrint}
