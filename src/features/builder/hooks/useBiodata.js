@@ -1,9 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getInitialState } from '../data/initialState';
 import { uuid } from '../../../utils/uuid';
 
+const STORAGE_KEY = 'biodata-builder-data';
+
+function loadSavedData() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return JSON.parse(saved);
+    } catch (e) {
+        console.warn('Failed to load saved biodata:', e);
+    }
+    return getInitialState();
+}
+
 export const useBiodata = () => {
-    const [biodata, setBiodata] = useState(getInitialState);
+    const [biodata, setBiodata] = useState(loadSavedData);
+    const timerRef = useRef(null);
+
+    // Debounced save to localStorage on every change
+    useEffect(() => {
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(biodata));
+            } catch (e) {
+                console.warn('Failed to save biodata:', e);
+            }
+        }, 500);
+        return () => clearTimeout(timerRef.current);
+    }, [biodata]);
 
     // Generic field update
     const updateField = (section, id, key, value) => {
