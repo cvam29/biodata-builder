@@ -4,21 +4,45 @@ import SectionEditor from '../features/builder/components/SectionEditor';
 import BiodataPreview from '../features/builder/components/BiodataPreview';
 import BuilderHeader from '../features/builder/components/BuilderHeader';
 import { backgrounds } from '../features/builder/data/backgrounds';
-import { generatePdf, generatePdfPreview } from '../features/builder/utils/generatePdf';
+import { generatePdf, generatePdfBlob } from '../features/builder/utils/generatePdf';
+import { useEffect } from 'react';
 import { Image as ImageIcon, Eye, Edit } from 'lucide-react';
 
 const BiodataBuilder = () => {
     const { biodata, updateField, addField, removeField, moveField } = useBiodata();
     const [bgImage, setBgImage] = useState('none');
     const [showPreview, setShowPreview] = useState(false);
+    const [lang, setLang] = useState(() => {
+        try {
+            return localStorage.getItem('biodata-lang') || 'en';
+        } catch (e) { return 'en'; }
+    });
 
     const [isSaving, setIsSaving] = useState(false);
+    const [pdfPreviewUrl, setPdfPreviewUrl] = useState(null);
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [pdfPreviewFilename, setPdfPreviewFilename] = useState('biodata-preview.pdf');
+
+    const getExportBaseName = (biodata) => {
+        try {
+            const nameField = biodata.personalDetails.find(f => (f.label || '').toLowerCase() === 'name');
+            const raw = (nameField && nameField.value) ? String(nameField.value).trim() : '';
+            if (!raw) return 'biodata';
+            // sanitize: remove unsafe chars and replace spaces with hyphens
+            const sanitized = raw.replace(/[^a-zA-Z0-9\s-_]/g, '').replace(/\s+/g, '-');
+            return sanitized || 'biodata';
+        } catch (e) {
+            return 'biodata';
+        }
+    };
 
     const handlePrint = async () => {
         if (isSaving) return;
         setIsSaving(true);
         try {
-            await generatePdf('biodata-preview', 'biodata.pdf');
+            const base = getExportBaseName(biodata);
+            const filename = `${base}-biodata.pdf`;
+            await generatePdf('biodata-preview', filename);
         } catch (err) {
             console.error('PDF generation failed:', err);
             alert('Failed to generate PDF. Please try again.');
@@ -31,7 +55,14 @@ const BiodataBuilder = () => {
         if (isSaving) return;
         setIsSaving(true);
         try {
-            await generatePdfPreview('biodata-preview', 'biodata-preview.pdf');
+            const blob = await generatePdfBlob('biodata-preview');
+            if (!blob) throw new Error('No PDF blob generated');
+            const url = URL.createObjectURL(blob);
+            const base = getExportBaseName(biodata);
+            const filename = `${base}-biodata.pdf`;
+            setPdfPreviewFilename(filename);
+            setPdfPreviewUrl(url);
+            setShowPdfModal(true);
         } catch (err) {
             console.error('PDF preview failed:', err);
             alert('Failed to generate PDF preview. Please try again.');
@@ -40,9 +71,25 @@ const BiodataBuilder = () => {
         }
     };
 
+    useEffect(() => {
+        return () => {
+            if (pdfPreviewUrl) URL.revokeObjectURL(pdfPreviewUrl);
+        };
+    }, [pdfPreviewUrl]);
+
+    useEffect(() => {
+        try { localStorage.setItem('biodata-lang', lang); } catch (e) {}
+    }, [lang]);
+
+    useEffect(() => {
+        document.title = 'Create Biodata — Biodata Builder';
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute('content', 'Create and customize your marriage biodata, then export as a high-quality PDF.');
+    }, []);
+
     return (
         <div className="flex flex-col h-screen overflow-hidden print:overflow-visible print:h-auto print:block text-gray-800 font-sans">
-             <BuilderHeader onPrint={handlePrint} onPreviewPdf={handlePreviewPdf} isSaving={isSaving} />
+             <BuilderHeader onPrint={handlePrint} onPreviewPdf={handlePreviewPdf} isSaving={isSaving} lang={lang} onLangChange={setLang} />
 
             {/* Mobile Preview/Edit Toggle */}
             <div className="md:hidden flex gap-2 p-3 bg-white border-b border-gray-200 no-print">
@@ -109,6 +156,7 @@ const BiodataBuilder = () => {
                             onAdd={() => addField('personalDetails')}
                             onRemove={(id) => removeField('personalDetails', id)}
                             onMove={(index, dir) => moveField('personalDetails', index, dir)}
+                            lang={lang}
                         />
                          <SectionEditor 
                             title="Family Details" 
@@ -117,6 +165,7 @@ const BiodataBuilder = () => {
                             onAdd={() => addField('familyDetails')}
                             onRemove={(id) => removeField('familyDetails', id)}
                             onMove={(index, dir) => moveField('familyDetails', index, dir)}
+                            lang={lang}
                         />
                          <SectionEditor 
                             title="Contact Details" 
@@ -125,6 +174,7 @@ const BiodataBuilder = () => {
                             onAdd={() => addField('contactDetails')}
                             onRemove={(id) => removeField('contactDetails', id)}
                             onMove={(index, dir) => moveField('contactDetails', index, dir)}
+                            lang={lang}
                         />
                     </div>
                 </div>
@@ -134,10 +184,34 @@ const BiodataBuilder = () => {
                     showPreview ? 'flex' : 'hidden md:flex'
                 }`}>
                      <div className="w-full py-4 sm:py-8"> 
-                         <BiodataPreview data={biodata} background={backgrounds.find(b => b.id === bgImage)} />
+                         <BiodataPreview data={biodata} background={backgrounds.find(b => b.id === bgImage)} lang={lang} />
                      </div>
                 </div>
             </main>
+                {/* PDF Preview Modal */}
+                {showPdfModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="w-full max-w-4xl bg-white rounded-lg overflow-hidden shadow-xl">
+                            <div className="flex items-center justify-between p-3 border-b">
+                                <div className="flex items-center gap-3">
+                                    <img src="https://englishbiodata.com/images/latest/gods/1.png" className="w-10 h-10 rounded-full border" alt="Logo" />
+                                    <h3 className="text-lg font-semibold">PDF Preview</h3>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <a href={pdfPreviewUrl} download={pdfPreviewFilename} className="text-sm text-amber-600 underline">Download</a>
+                                    <button onClick={() => { setShowPdfModal(false); setPdfPreviewUrl(prev => { if (prev) { URL.revokeObjectURL(prev); } return null; }); }} className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200">Close</button>
+                                </div>
+                            </div>
+                            <div className="h-[80vh] bg-gray-50">
+                                {pdfPreviewUrl ? (
+                                    <iframe title="PDF Preview" src={pdfPreviewUrl} className="w-full h-full" />
+                                ) : (
+                                    <div className="flex items-center justify-center h-full text-gray-500">Preparing preview...</div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
         </div>
     );
 };

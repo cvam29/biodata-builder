@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Shield, Sparkles } from 'lucide-react';
 
 const Home = () => {
+    useEffect(() => {
+        document.title = 'Biodata Builder — Create Marriage Biodata';
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute('content', 'Design and download professional marriage biodatas quickly. Customize fields, add photos, and export PDFs.');
+    }, []);
   return (
     <>
         {/* Hero Section */}
-        <section className="py-12 sm:py-16 lg:py-32 bg-gradient-to-b from-amber-50 to-white overflow-hidden">
+        <section className="py-12 sm:py-16 lg:py-32 bg-linear-to-b from-amber-50 to-white overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 text-center">
                 <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6 tracking-tight">
                     Create Your Perfect <span className="text-amber-600">Marriage Biodata</span>

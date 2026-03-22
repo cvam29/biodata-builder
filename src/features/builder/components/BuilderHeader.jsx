@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Printer, Loader2, Eye } from 'lucide-react';
 
-const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving }) => {
+const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving, lang = 'en', onLangChange = () => {} }) => {
     return (
         <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 shadow-sm z-10 shrink-0 no-print">
             {/* Mobile Layout */}
@@ -17,6 +17,11 @@ const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving }) => {
                 </div>
 
                 <div className="flex items-center gap-2">
+                    <div className="flex items-center border rounded overflow-hidden">
+                        <button onClick={() => onLangChange('en')} className={`px-2 py-1 ${lang === 'en' ? 'bg-amber-600 text-white' : 'text-gray-600 bg-white'}`}>EN</button>
+                        <button onClick={() => onLangChange('hi')} className={`px-2 py-1 ${lang === 'hi' ? 'bg-amber-600 text-white' : 'text-gray-600 bg-white'}`}>HI</button>
+                    </div>
+
                     <button
                         onClick={onPreviewPdf}
                         disabled={isSaving}
@@ -49,6 +54,11 @@ const BuilderHeader = ({ onPrint, onPreviewPdf, isSaving }) => {
                 </div>
 
                 <div className="flex items-center gap-3">
+                    <div className="flex items-center border rounded overflow-hidden">
+                        <button onClick={() => onLangChange('en')} className={`px-2 py-1 ${lang === 'en' ? 'bg-amber-600 text-white' : 'text-gray-600 bg-white'}`}>EN</button>
+                        <button onClick={() => onLangChange('hi')} className={`px-2 py-1 ${lang === 'hi' ? 'bg-amber-600 text-white' : 'text-gray-600 bg-white'}`}>HI</button>
+                    </div>
+
                     <button
                         onClick={onPreviewPdf}
                         disabled={isSaving}
