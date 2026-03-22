@@ -1,5 +1,54 @@
 @import "tailwindcss";
 
 body {
-  background: #e2e8f0; /* slalt-200 */
+  background: #e2e8f0; /* slate-200 */
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  /* Reset body */
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide all non-print UI elements (editor, header, toggles) */
+  .no-print {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Force root + outermost wrapper to unclip */
+  #root {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #root > * {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: none !important;
+  }
+
+  /* Force <main> to be block and unclipped */
+  main {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Force the preview panel to always be visible even if hidden on mobile */
+  main > *:not(.no-print) {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }

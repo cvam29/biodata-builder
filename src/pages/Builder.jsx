@@ -16,7 +16,7 @@ const BiodataBuilder = () => {
     };
 
     return (
-        <div className="flex flex-col h-screen overflow-hidden text-gray-800 font-sans">
+        <div className="flex flex-col h-screen overflow-hidden print:overflow-visible print:h-auto print:block text-gray-800 font-sans">
              <BuilderHeader onPrint={handlePrint} />
 
             {/* Mobile Preview/Edit Toggle */}
@@ -46,7 +46,7 @@ const BiodataBuilder = () => {
             </div>
 
             {/* Main Content - Split View */}
-            <main className="flex-1 flex overflow-hidden">
+            <main className="flex-1 flex overflow-hidden print:overflow-visible print:block print:h-auto">
                 {/* Editor Panel */}
                 <div className={`w-full md:w-1/2 lg:w-5/12 bg-slate-50 border-r border-gray-200 overflow-y-auto custom-scrollbar no-print ${
                     showPreview ? 'hidden md:block' : 'block'
@@ -105,7 +105,7 @@ const BiodataBuilder = () => {
                 </div>
 
                 {/* Preview Panel */}
-                <div className={`w-full md:w-1/2 lg:w-7/12 bg-slate-200/50 relative overflow-y-auto justify-center items-start ${
+                <div className={`w-full md:w-1/2 lg:w-7/12 bg-slate-200/50 relative overflow-y-auto justify-center items-start print:w-full print:block print:overflow-visible print:h-auto print:bg-white ${
                     showPreview ? 'flex' : 'hidden md:flex'
                 }`}>
                      <div className="w-full py-4 sm:py-8"> 

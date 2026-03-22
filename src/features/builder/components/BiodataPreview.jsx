@@ -4,7 +4,7 @@ const BiodataPreview = ({ data, background }) => {
   const bgClass = background?.class || 'bg-white';
 
   return (
-    <div className="preview-container bg-gray-500 p-4 sm:p-8 min-h-screen overflow-auto flex justify-center items-start">
+    <div className="preview-container bg-gray-500 p-4 sm:p-8 min-h-screen overflow-auto flex justify-center items-start print:block print:overflow-visible print:p-0 print:bg-transparent print:min-h-0">
         {/* Inline styles to match the original HTML exactly, scoped to this component if needed, 
             but here we use the exact classes and a style tag for print fidelity. 
         */}
